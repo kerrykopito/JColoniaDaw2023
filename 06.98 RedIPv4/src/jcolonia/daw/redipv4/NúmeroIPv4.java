@@ -14,16 +14,9 @@ package jcolonia.daw.redipv4;
 public record NúmeroIPv4(int byte1, int byte2, int byte3, int byte4) {
 
 	/**
-	 * Crea una dirección IPv4 con los cuatro valores facilitados.
-	 * 
-	 * @param byte1 Primer byte por la izquierda, el más significativo
-	 * @param byte2 Segundo byte por la izquierda, el segundo más significativo
-	 * @param byte3 Tercer byte por la izquierda, el segundo menos significativo
-	 * @param byte4 Cuarto byte por la izquierda, el menos significativo
-	 * @throws NúmeroIPv4Exception si alguno de los valores estuviera fuera del
-	 *                             rango [0,255]
+	 * Verificación previa de los cuatro valores facilitados para el número IPv4.
 	 */
-	public NúmeroIPv4(int byte1, int byte2, int byte3, int byte4) {
+	public NúmeroIPv4 {
 		String mensaje;
 		int byteMal = 0;
 
@@ -42,11 +35,7 @@ public record NúmeroIPv4(int byte1, int byte2, int byte3, int byte4) {
 			mensaje = String.format("Byte %d en «%d-%d-%d-%d» fuera de rango", byteMal, byte1, byte2, byte3, byte4);
 			throw new NúmeroIPv4Exception(mensaje);
 		}
-
-		this.byte1 = byte1;
-		this.byte2 = byte2;
-		this.byte3 = byte3;
-		this.byte4 = byte4;
+		// Constructor compacto → constructor canónico
 	}
 
 	/**
