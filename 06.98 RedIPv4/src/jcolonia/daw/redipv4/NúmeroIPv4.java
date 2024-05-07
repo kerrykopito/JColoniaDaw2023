@@ -68,7 +68,7 @@ public record NúmeroIPv4(int byte1, int byte2, int byte3, int byte4) {
 	 */
 	public NúmeroIPv4 aplicarMáscara(NúmeroIPv4 máscara) {
 		NúmeroIPv4 red;
-		int red32, dirección32, máscara32;
+		long red32, dirección32, máscara32;
 
 		dirección32 = this.toInt32();
 		máscara32 = máscara.toInt32();
@@ -92,56 +92,56 @@ public record NúmeroIPv4(int byte1, int byte2, int byte3, int byte4) {
 
 	/**
 	 * Calcula el número de direcciones —tamaño del rango— establecido por una
-	 * máscara.
+	 * máscara. Para soportar valores positivos de 32 bits requiere emplear enteros
+	 * de tipo <code>long</code>.
 	 * 
 	 * @param máscaraCIDR la máscara a consultar, en formato CIDR
 	 * @return el valor correspondiente
 	 */
-	public static int capacidadRed(int máscaraCIDR) {
-		int capacidad;
+	public static long capacidadRed(int máscaraCIDR) {
+		long capacidad;
 		int bitsNodos = 32 - máscaraCIDR;
 
-		capacidad = 1 << bitsNodos;
+		capacidad = 1L << bitsNodos;
 
 		return capacidad;
 	}
 
 	/**
 	 * Facilita la representación del número IPv4 completo como un valor entero de
-	 * 32 bits. Solo es aplicable como apoyo para operaciones binarias internas,
-	 * dado que el bit de signo pierde su significado habitual y su uso no sería
-	 * coherente en operaciones aritméticas.
+	 * 32 bits. Para soportar valores positivos de 32 bits requiere emplear enteros
+	 * de tipo <code>long</code>.
 	 * 
 	 * @return el valor correspondiente
 	 */
-	private int toInt32() {
-		int total;
+	private long toInt32() {
+		long total;
 
-		total = byte4;
-		total += byte3 << 8;
-		total += byte2 << 16;
-		total += byte1 << 24;
+		total = (long) byte4;
+		total += (long) byte3 << 8;
+		total += (long) byte2 << 16;
+		total += (long) byte1 << 24;
 
 		return total;
 	}
 
 	/**
 	 * Crea un número IPv4 a partir de una representación como valor entero de 32
-	 * bits. Solo es aplicable como apoyo para operaciones binarias internas. Véase
-	 * la explicación dada en {@link #toInt32()}.
+	 * bits. Para soportar valores positivos de 32 bits requiere emplear enteros de
+	 * tipo <code>long</code>.
 	 * 
 	 * @param n el valor entero de 32 bits
 	 * @return el número IPv4 resultante
 	 */
-	private static NúmeroIPv4 toIPv4(int n) {
+	private static NúmeroIPv4 toIPv4(long n) {
 		NúmeroIPv4 ip4;
 
 		int NÚM_BYTES = 4;
-		int ventana = 0x000000FF;
+		long ventana = 0xFFL;
 		int bytes[] = new int[NÚM_BYTES];
 
 		for (int i = 0; i < NÚM_BYTES; i++, ventana <<= 8) {
-			bytes[i] = (n & ventana) >> (8 * i);
+			bytes[i] = (int) ((n & ventana) >> (8 * i));
 		}
 
 		ip4 = new NúmeroIPv4(bytes[3], bytes[2], bytes[1], bytes[0]);
