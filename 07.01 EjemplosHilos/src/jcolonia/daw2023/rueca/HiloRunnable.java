@@ -29,7 +29,7 @@ public class HiloRunnable implements Runnable {
 		// int númProcesadores = Runtime.getRuntime().availableProcessors();
 		// MÁX_HILOS = númProcesadores < 4 ? 4 : númProcesadores - 2;
 
-		 MÁX_HILOS = 20;
+		MÁX_HILOS = 20;
 
 		númHilos = 0;
 	}
@@ -52,7 +52,7 @@ public class HiloRunnable implements Runnable {
 	public void run() {
 		hilo = Thread.currentThread();
 
-		System.out.printf("Activado %s con id=%d%n", hilo, hilo.getId());
+		System.out.printf("Activado %s con id=%d%n", hilo, hilo.threadId());
 		fichar();
 
 		hilo = null;
