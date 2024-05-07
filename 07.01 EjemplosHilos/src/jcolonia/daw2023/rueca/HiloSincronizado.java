@@ -8,7 +8,7 @@ import java.util.List;
  * {@link java.lang.Runnable Runnable} y con un bloque sincronizado.
  * 
  * @author <a href= "mailto:dmartin.jcolonia@gmail.com">David H. Martín</a>
- * @version 1.1 (20230424)
+ * @version 1.2 (20240507)
  */
 public class HiloSincronizado implements Runnable {
 	/** Número de hilos a crear en la demostración. */
@@ -32,10 +32,10 @@ public class HiloSincronizado implements Runnable {
 	private int id;
 
 	static {
-		int númProcesadores = Runtime.getRuntime().availableProcessors();
-		MÁX_HILOS = númProcesadores < 4 ? 4 : númProcesadores - 2;
+		// int númProcesadores = Runtime.getRuntime().availableProcessors();
+		// MÁX_HILOS = númProcesadores < 4 ? 4 : númProcesadores - 2;
 
-		// MÁX_HILOS = 20;
+		 MÁX_HILOS = 20;
 
 		númHilos = 0;
 		turno = 1;
@@ -60,7 +60,7 @@ public class HiloSincronizado implements Runnable {
 	public void run() {
 		hilo = Thread.currentThread();
 
-		System.out.printf("Activado %s» con id=%d%n", hilo, hilo.getId());
+		System.out.printf("Activado %s con id=%d%n", hilo, hilo.getId());
 		try {
 			fichar();
 		} catch (InterruptedException e) {
