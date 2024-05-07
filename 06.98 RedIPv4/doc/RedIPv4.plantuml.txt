@@ -1,0 +1,94 @@
+@startuml
+' skin rose
+' skinparam shadowing false
+skinparam classAttributeIconSize 0
+hide empty members
+set separator none
+
+package jcolonia.daw.redipv4 <<frame>> {
+
+class ControlIPv4 {
+	- datos: RedIPv4
+	+ ControlIPv4()
+	+ buclePrincipal(): void
+	+ gestiónAltas(): void
+	+ gestiónListado(): void
+	+ gestiónExportar(): void
+	+ gestiónImportar(): void
+	+ gestiónNoImplementada(): void
+	+ {static} main(argumentos: String[*]): void
+}
+
+class NúmeroIPv4 << (R,#FF7700) Registro >>{
++ byte1: int
++ byte2: int
++ byte3: int
++ byte4: int
++ toString(): String
+}
+
+class RedIPv4 {
+	- lista: List<IdentificaciónIPv4>
+	- red: IdentificaciónIPv4
+	+ RedIPv4()
+	+ toTextoListado(): List<String>
+	+ toTextoCSV(): List<String>
+	+ toString(): String
+	+ {static} of(txtDirección: String): RedIPv4
+}
+
+class IdentificaciónIPv4 {
+	- dirección: NúmeroIPv4
+	- máscara: NúmeroIPv4
+	+ {static} of(txtDirección: String, txtMáscara: String): IdentificaciónIPv4
+	+ {static} of(txtDirección: String, máscaraCIDR: int)
+	+ {static} of(dirección: NúmeroIPv4, máscara: NúmeroIPv4)
+	+ getIP(): NúmeroIPv4
+	- setIP(txtDirección: String): void
+	- setIP(dirección: NúmeroIPv4): void
+	+ getMáscara(): NúmeroIPv4
+	- setMáscara(máscaraCIDR: int): void
+	- setMáscara(máscara: NúmeroIPv4): void
+	- setMáscara(txtMáscara: String): void
+	+ toString(): String
+	+ toLíneaListado(): String
+	+ toLíneaCSV(): String
+	+ {static} importarCSV(líneaCSV: String): ElementoX
+}
+
+
+class VistaGeneral {
+	- nombre: String
+	- {static} scEntrada: Scanner
+	+ {static} getScEntrada(): Scanner
+	+ {static} mostrarTexto(): void
+	+ {static} pedirConfirmación(pregunta: String): boolean
+	+ mostrarTítulo(resaltado: boolean): void
+	- generarLínea(carácter: char): String 
+}
+
+class VistaMenú {
+	- listaOpciones: String[*]
+	- conSalir: boolean
+	+ VistaMenú(nombre: String, listaOpciones: String[])
+	+ VistaMenú(nombre: String, listaOpciones: String[], conSalir: boolean)
+	+ mostrarMenú(): void
+	+ pedirOpción(): int
+}
+
+
+ControlX - RedIPv4 : gestiona >
+RedIPv4 o- IdentificaciónIPv4 : contiene >
+IdentificaciónIPv4 ..> NúmeroIPv4 : usa
+
+
+ControlX ..> VistaMenú
+ControlX ..> VistaListado
+ControlX ..> VistaAltasX
+VistaMenú --|> VistaGeneral
+VistaListado --|> VistaGeneral
+VistaAltasX --|> VistaGeneral
+
+
+}
+@enduml
