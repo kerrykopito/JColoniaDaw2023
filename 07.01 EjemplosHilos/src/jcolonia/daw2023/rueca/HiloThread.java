@@ -62,7 +62,7 @@ public class HiloThread extends Thread {
 	public void run() {
 		hilo = this;
 
-		System.out.printf("Activado %s con id=%d%n", hilo, hilo.getId());
+		System.out.printf("Activado %s con id=%d%n", hilo, hilo.threadId());
 		fichar();
 
 		hilo = null;
