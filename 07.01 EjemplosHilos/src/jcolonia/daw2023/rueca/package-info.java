@@ -17,6 +17,6 @@
  * su turno.</div>
  * 
  * @author <a href= "mailto:dmartin.jcolonia@gmail.com">David H. Martín</a>
- * @version 1.0 (20230423)
+ * @version 1.2 (20240507)
  */
 package jcolonia.daw2023.rueca;

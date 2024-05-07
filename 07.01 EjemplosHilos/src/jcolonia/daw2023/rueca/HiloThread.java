@@ -8,7 +8,7 @@ import java.util.List;
  * {@link java.lang.Thread Thread}.
  * 
  * @author <a href= "mailto:dmartin.jcolonia@gmail.com">David H. Martín</a>
- * @version 1.1 (20230424)
+ * @version 1.2 (20240507)
  */
 public class HiloThread extends Thread {
 
@@ -30,10 +30,10 @@ public class HiloThread extends Thread {
 	private int id;
 
 	static {
-		int númProcesadores = Runtime.getRuntime().availableProcessors();
-		MÁX_HILOS = númProcesadores < 4 ? 4 : númProcesadores - 2;
+		// int númProcesadores = Runtime.getRuntime().availableProcessors();
+		// MÁX_HILOS = númProcesadores < 4 ? 4 : númProcesadores - 2;
 
-		// MÁX_HILOS = 20;
+		MÁX_HILOS = 20;
 
 		númHilos = 0;
 	}
@@ -62,7 +62,7 @@ public class HiloThread extends Thread {
 	public void run() {
 		hilo = this;
 
-		System.out.printf("Activado %s» con id=%d%n", hilo, hilo.getId());
+		System.out.printf("Activado %s con id=%d%n", hilo, hilo.getId());
 		fichar();
 
 		hilo = null;
