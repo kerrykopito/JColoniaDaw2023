@@ -35,8 +35,7 @@ public class BocetoVentanaPrincipal extends JFrame {
 	 */
 	public static void main(String[] argumentos) {
 		try {
-			UIManager.setLookAndFeel(
-					"javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -94,6 +93,7 @@ public class BocetoVentanaPrincipal extends JFrame {
 	private JScrollPane getPanelTablaDeslizante() {
 		if (panelTablaDeslizante == null) {
 			panelTablaDeslizante = new JScrollPane();
+			panelTablaDeslizante.setBackground(Color.ORANGE);
 			panelTablaDeslizante.setViewportView(getTablaPaíses());
 		}
 		return panelTablaDeslizante;
@@ -102,10 +102,12 @@ public class BocetoVentanaPrincipal extends JFrame {
 	private JTable getTablaPaíses() {
 		if (tablaPaíses == null) {
 			tablaPaíses = new JTable();
+			tablaPaíses.setFillsViewportHeight(true);
 			tablaPaíses.setShowVerticalLines(true);
 			tablaPaíses.setShowHorizontalLines(true);
-			tablaPaíses.setGridColor(Color.RED);
+			tablaPaíses.setGridColor(new Color(255, 228, 181));
 			tablaPaíses.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tablaPaíses.setAutoCreateRowSorter(true);
 			tablaPaíses.setModel(getModeloPaíses());
 		}
 		return tablaPaíses;
